@@ -110,7 +110,7 @@ $main-footer-bg: $white !default;
 
 // Dark sidebar
 $sidebar-dark-bg: $dark !default;
-$sidebar-dark-hover-bg: rgba(255, 255, 255, .1) !default;
+$sidebar-dark-hover-bg: rgba(194, 117, 117, 0.127) !default;
 $sidebar-dark-color: #c2c7d0 !default;
 $sidebar-dark-hover-color: $white !default;
 $sidebar-dark-active-color: $white !default;
@@ -128,7 +128,7 @@ $sidebar-light-color: $gray-800 !default;
 $sidebar-light-hover-color: $gray-900 !default;
 $sidebar-light-active-color: $black !default;
 $sidebar-light-submenu-bg: transparent !default;
-$sidebar-light-submenu-color: #777 !default;
+$sidebar-light-submenu-color: rgb(221, 92, 92) !default;
 $sidebar-light-submenu-hover-color: $black !default;
 $sidebar-light-submenu-hover-bg: $sidebar-light-hover-bg !default;
 $sidebar-light-submenu-active-color: $sidebar-light-hover-color !default;

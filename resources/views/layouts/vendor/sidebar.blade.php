@@ -4,7 +4,7 @@
     <a href="index3.html" class="brand-link">
       <img src="{{asset('assets/AdminLTE/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">PENJUALAN</span>
     </a>
 
     <!-- Sidebar -->
@@ -15,7 +15,7 @@
           <img src="{{asset('assets/AdminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">Admin</a>
         </div>
       </div>
 
@@ -27,21 +27,33 @@
           <li class="nav-item">
             <a id="dashboard"  href="/dashboard" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard              
-              </p>
+              <span>Dashboard</span>
             </a>           
           </li>
           <li class="nav-item">
-            <a id="posts" href="/posts" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Posts             
-              </p>
+            <a id="barang" href="/barang" class="nav-link">
+              <i class="nav-icon fas fa-fw fa-folder-open"></i>
+              <span>Barang</span>
             </a>
           </li> 
-         
-            
+          <li class="nav-item">
+            <a id="penjualan" href="/penjualan" class="nav-link">
+              <i class="nav-icon fas fa-fw fa-poll-h"></i>
+              <span>Penjualan</span>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a id="labarugi" href="/labarugi" class="nav-link">
+              <i class="nav-icon fas fa-fw fa-file-invoice"></i>
+              <span>Laba Rugi</span>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="/logout" class="nav-link">
+              <i class="nav-icon fas fa-fw fa-sign-out-alt"></i>
+              <span>Keluar</span>
+            </a>
+          </li>   
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
