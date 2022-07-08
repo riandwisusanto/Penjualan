@@ -9,6 +9,10 @@ class AuthController extends Controller
 {
     public function index()
     {
+        if(Auth::check()){
+            return redirect('/dashboard');
+        }
+
         return view('auth.login');
     }  
       
@@ -20,17 +24,20 @@ class AuthController extends Controller
         ]);
    
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                        ->withSuccess('Signed in');
+        $remember = false;
+        if($request->remember == 'on')
+            $remember = true;
+        if (Auth::attempt($credentials, $remember)) {
+            return redirect()->intended('dashboard');
         }
-  
-        return redirect("login")->withSuccess('Login details are not valid');
+
+        session()->flash('warning', 'Email / Password salah.');
+        return redirect("/");
     }
 
     public function registration()
     {
-        return view('auth.registration');
+        return view('auth.register');
     }
       
     public function customRegistration(Request $request)
@@ -56,19 +63,10 @@ class AuthController extends Controller
       ]);
     }    
     
-    public function dashboard()
-    {
-        if(Auth::check()){
-            return view('dashboard');
-        }
-  
-        return redirect("login")->withSuccess('You are not allowed to access');
-    }
-    
     public function signOut() {
         Session::flush();
         Auth::logout();
   
-        return Redirect('login');
+        return Redirect('/');
     }
 }

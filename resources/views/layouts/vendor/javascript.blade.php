@@ -24,6 +24,8 @@
 <script src="{{asset('assets/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 <!-- Summernote -->
 <script src="{{asset('assets/AdminLTE/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- Sweetalert2 -->
+<script src="{{asset('assets/AdminLTE/plugins/sweetalert2/sweetalert2.js')}}"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('assets/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
@@ -45,4 +47,3 @@
 <script src="assets/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="assets/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="assets/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

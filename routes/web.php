@@ -24,11 +24,13 @@ use App\Http\Controllers\PenjualanController;
 
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('custom-login', [AuthController::class, 'customLogin'])->name('login.custom'); 
-Route::get('registration', [AuthController::class, 'registration'])->name('register-user');
+Route::get('register', [AuthController::class, 'registration'])->name('register-user');
 Route::post('custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom'); 
-Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
+Route::get('logout', [AuthController::class, 'signOut'])->name('signout');
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/barang', [BarangController::class, 'index']);
-Route::get('/penjualan', [PenjualanController::class, 'index']);
-Route::get('/labarugi', [LabarugiController::class, 'index']);
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::resource('/barang', BarangController::class);
+    Route::get('/penjualan', [PenjualanController::class, 'index']);
+    Route::get('/labarugi', [LabarugiController::class, 'index']);
+});
