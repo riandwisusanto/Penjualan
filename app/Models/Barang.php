@@ -17,4 +17,9 @@ class Barang extends Model
 
     /** @var Type $var description */
     public $incrementing = false;
+
+    public function penjualan()
+    {
+        return $this->hasMany('App\Models\Penjualan', 'id_barang', 'id');
+    }
 }

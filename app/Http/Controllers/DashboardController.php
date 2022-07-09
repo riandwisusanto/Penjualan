@@ -19,6 +19,8 @@ class DashboardController extends Controller
 
                         return $acc + $bersih;
                     });
-        return view('dashboard.index', compact('barang', 'penjualan', 'laba'));
+        $data      = Barang::with('penjualan')->get();
+        // return $data;
+        return view('dashboard.index', compact('barang', 'penjualan', 'laba', 'data'));
     }
 }
