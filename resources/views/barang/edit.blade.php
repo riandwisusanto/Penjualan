@@ -10,16 +10,17 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Tambah Barang</h3>
+                        <h3 class="card-title">Edit Barang # {{ $data->id }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <form
                         method="post"
-                        action="{{ url('/barang') }}"
+                        action="{{ url('/barang/'.$data->id) }}"
                         enctype="multipart/form-data"
                     >
                     @csrf
+                    {{ method_field('PUT') }}
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="nama_brg">Nama Barang <span class="text-danger">*</span></label>
@@ -30,6 +31,7 @@
                                     placeholder="Nama Barang"
                                     autocomplete="off"
                                     name="nama_brg"
+                                    value="{{ $data->nama_brg }}"
                                     required
                                 />
                             </div>
@@ -43,6 +45,7 @@
                                     placeholder="Jumlah Barang"
                                     step="any"
                                     autocomplete="off"
+                                    value="{{ $data->qty_brg }}"
                                     required
                                 />
                             </div>
@@ -55,6 +58,7 @@
                                     name="harga_beli"
                                     data-type="currency"
                                     placeholder="Harga Beli"
+                                    value="{{ $data->harga_beli }}"
                                     autocomplete="off"
                                 />
                             </div>
@@ -67,6 +71,7 @@
                                     name="harga_jual"
                                     data-type="currency"
                                     placeholder="Harga Jual"
+                                    value="{{ $data->harga_jual }}"
                                     autocomplete="off"
                                 />
                             </div>
@@ -78,7 +83,7 @@
                                     rows="3"
                                     class="form-control"
                                     autocomplete="off"
-                                ></textarea>
+                                >{{ $data->keterangan }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="gambar">Gambar</label>
@@ -100,7 +105,7 @@
                         <div class="card-footer">
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-primary">
-                                    Simpan
+                                    Update
                                 </button>
                                 <a
                                     href="{{ url('barang') }}"
@@ -121,6 +126,8 @@
 @endsection @section('extra_javascript')
 <script>
     // Jquery Dependency
+    $('#harga_beli').attr('value', (formatNumber($('#harga_beli').val()) + ',00'))
+    $('#harga_jual').attr('value', (formatNumber($('#harga_jual').val()) + ',00'))
 
     $("input[data-type='currency']").on({
         keyup: function () {

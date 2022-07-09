@@ -50,8 +50,9 @@
                                         </div>
                                     </div>
                                     <div class="d-grid mx-auto">
-                                        <button type="submit" class="btn btn-dark btn-block">Signin</button>
+                                        <button type="submit" class="btn btn-dark btn-block">Login</button>
                                     </div>
+                                    <p class="sign-up">Tidak punya akun?<a href="{{ url('register') }}"> Register</a></p>
                                 </form>
                             </div>
                         </div>

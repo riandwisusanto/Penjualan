@@ -10,7 +10,9 @@ class BarangController extends Controller
 {
     public function index()
     {
-        return view('barang.index');
+        $data = Barang::orderBy('id', 'desc')->get();
+
+        return view('barang.index', compact('data'));
     }
 
     public function create()
@@ -35,14 +37,21 @@ class BarangController extends Controller
         if($latest != null)
             $id     = $latest->id + 1;
         
+        $harga_beli      = explode(',', $request->harga_beli);
+        $harga_beli      = str_replace('.', '', $harga_beli[0]);
+
+        $harga_jual      = explode(',', $request->harga_jual);
+        $harga_jual      = str_replace('.', '', $harga_jual[0]);
+
         $model            = new Barang();
         $model->id        = $id;
         $model->nama_brg  = $request->nama_brg;
         $model->qty_brg   = $request->qty;
-        $model->harga     = $request->harga;
+        $model->harga_beli= (int)$harga_beli;
+        $model->harga_jual= (int)$harga_jual;
         $model->keterangan= $request->ket;
         $model->gambar    = $filenameSimpan;        
-        $model->tgl       = date('d-m-Y');
+        $model->tanggal   = date('Y-m-d');
 
         try {
             $model->save();
@@ -52,6 +61,67 @@ class BarangController extends Controller
 
         session()->flash('success', 'Berhasil menyimpan barang');
         return redirect("barang");
+    }
 
+    public function destroy(Request $request, $id)
+    {
+        $data = Barang::where('id', $id)->first();
+
+        try {
+            $data->delete();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        if(file_exists(public_path('storage/image/'.$data->gambar)))
+            unlink(public_path('storage/image/'.$data->gambar));
+
+        session()->flash('success', 'Berhasil menghapus barang');
+        return redirect("barang");
+    }
+
+    public function show($id)
+    {
+        $data = Barang::where('id', $id)->first();
+
+        return view('barang.edit', compact('data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $harga_beli      = explode(',', $request->harga_beli);
+        $harga_beli      = str_replace('.', '', $harga_beli[0]);
+
+        $harga_jual      = explode(',', $request->harga_jual);
+        $harga_jual      = str_replace('.', '', $harga_jual[0]);
+
+        $model            = Barang::where('id', $id)->first();
+        $model->nama_brg  = $request->nama_brg;
+        $model->qty_brg   = $request->qty;
+        $model->harga_beli= (int)$harga_beli;
+        $model->harga_jual= (int)$harga_jual;
+        $model->keterangan= $request->ket;       
+        $model->tanggal   = date('Y-m-d');
+
+        if($request->hasFile('gambar')){
+            $filenameWithExt = $request->file('gambar')->getClientOriginalName();
+            $filename        = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension       = $request->file('gambar')->getClientOriginalExtension();
+            $filenameSimpan  = $filename.'_'.time().'.'.$extension;
+            $request->file('gambar')->storeAs('public/image', $filenameSimpan);
+
+            if(file_exists(public_path('storage/image/'.$model->gambar)))
+                unlink(public_path('storage/image/'.$model->gambar));
+            $model->gambar    = $filenameSimpan;
+        }
+
+        try {
+            $model->save();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        session()->flash('success', 'Berhasil mengedit barang');
+        return redirect("barang");
     }
 }

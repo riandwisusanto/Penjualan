@@ -47,6 +47,7 @@
                                     <div class="d-grid mx-auto">
                                         <button type="submit" class="btn btn-dark btn-block">Sign up</button>
                                     </div>
+                                    <p class="sign-up">Sudah punya akun?<a href="{{ url('/') }}"> Login</a></p>
                                 </form>
                             </div>
                         </div>
