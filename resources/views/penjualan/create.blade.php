@@ -1,4 +1,4 @@
-@extends('layouts.vendor.app') @section('title','Tambah Barang')
+@extends('layouts.vendor.app') @section('title','Tambah Transaksi')
 @section('home-href')
 {{ url("penjualan") }}
 @endsection @section('home', 'Penjualan') @section('breadcrumb','Tambah Transaksi')

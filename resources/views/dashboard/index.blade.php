@@ -1,5 +1,9 @@
 @extends('layouts.vendor.app')
 @section('title','Dashboard')
+@section('home-href')
+{{ url("dashboard") }}
+@endsection 
+@section('home', 'Dashboard')
 @section('breadcrumb','Dashboard')
 @section('content')
 <section class="content">
@@ -10,8 +14,8 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>150</h3>
-            <p>Data Barang</p>
+            <h3>{{ $barang }}</h3>
+            <p>Stok Barang</p>
           </div>
           <div class="icon">
             <i class="fas fa-fw fa-folder-open"></i>
@@ -23,7 +27,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>53<sup style="font-size: 20px">%</sup></h3>
+            <h3>{{ $penjualan }}</h3>
 
             <p>Data Penjualan</p>
           </div>
@@ -37,9 +41,9 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>65</h3>
+            <h3>Rp. {{str_replace(',', '.', number_format($laba))}},00</h3>
 
-            <p>Laba</p>
+            <p>Laba Bersih</p>
           </div>
           <div class="icon">
             <i class="ion ion-pie-graph"></i>
