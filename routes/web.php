@@ -31,6 +31,6 @@ Route::get('logout', [AuthController::class, 'signOut'])->name('signout');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::resource('/barang', BarangController::class);
-    Route::get('/penjualan', [PenjualanController::class, 'index']);
+    Route::resource('/penjualan', PenjualanController::class);
     Route::get('/labarugi', [LabarugiController::class, 'index']);
 });

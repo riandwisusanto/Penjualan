@@ -125,6 +125,9 @@
 </section>
 @endsection @section('extra_javascript')
 <script>
+    $(document).ready(function (){
+        $('#barang').addClass('active');
+    });
     // Jquery Dependency
     $('#harga_beli').attr('value', (formatNumber($('#harga_beli').val()) + ',00'))
     $('#harga_jual').attr('value', (formatNumber($('#harga_jual').val()) + ',00'))

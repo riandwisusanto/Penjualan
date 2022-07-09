@@ -120,6 +120,9 @@
 </section>
 @endsection @section('extra_javascript')
 <script>
+    $(document).ready(function (){
+        $('#barang').addClass('active');
+    });
     // Jquery Dependency
 
     $("input[data-type='currency']").on({

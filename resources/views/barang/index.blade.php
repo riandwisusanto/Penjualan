@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                  <a href="{{ url('barang/create') }}" class="btn btn-primary"><b>+</b> Tambah</a>
+                  <a href="{{ url('barang/create') }}" class="btn btn-sm btn-primary"><b>+</b> Tambah</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
