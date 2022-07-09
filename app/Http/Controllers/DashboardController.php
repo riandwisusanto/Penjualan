@@ -12,7 +12,7 @@ class DashboardController extends Controller
     {
         $barang    = Barang::sum('qty_brg');
         $penjualan = Penjualan::count();
-        $jual      = Penjualan::with('barang')->get();
+        $jual      = Penjualan::with('barang')->where('status', 1)->get();
         $laba      = $jual->reduce(function($acc, $row) {
                         $kotor  = ($row->barang->harga_jual - $row->barang->harga_beli) * $row->qty; 
                         $bersih = $kotor - (10 * $kotor / 100);
