@@ -1,4 +1,4 @@
-@extends('layouts.vendor.app') @section('title','Tambah Barang')
+@extends('layouts.vendor.app') @section('title','Edit Transaksi')
 @section('home-href')
 {{ url("penjualan") }}
 @endsection @section('home', 'Penjualan') @section('breadcrumb','Edit Transaksi')
@@ -29,6 +29,7 @@
                                         <option 
                                             value="{{ $item->id }}" 
                                             data-value="{{ $item->harga_jual }}"
+                                            data-max="{{ $item->qty_brg }}"
                                             {{ ($data->id_barang == $item->id) ? 'selected' : '' }}
                                         >
                                             {{ $item->nama_brg }}
@@ -61,6 +62,19 @@
                                     value="{{ $data->qty }}"
                                     autocomplete="off"
                                     required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="total">Total</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="total"
+                                    name="total"
+                                    data-type="currency"
+                                    value="0,00"
+                                    autocomplete="off"
+                                    readonly
                                 />
                             </div>
                             <div class="form-group">
@@ -126,16 +140,38 @@
     $(document).ready(function (){
         $('#penjualan').addClass('active');
     });
-    // Jquery Dependency
+    let qty_awal = parseInt($("#id_barang option:selected").attr('data-max')) + parseInt($("#qty").val())
+    let id_awal  = $("#id_barang").val()
+
     let harga = $("#id_barang option:selected").attr('data-value')
     $('#harga').val(formatNumber(harga) + ',00')
 
+    let total = '' + ($("#id_barang option:selected").attr('data-value') * $("#qty").val())
+    $('#total').val(formatNumber(total) + ',00')
+
     $("#id_barang").on({
         change: function () {
+            $("#qty").val(1)
+
             let harga = $("#id_barang option:selected").attr('data-value')
             $('#harga').val(formatNumber(harga) + ',00')
+
+            let total = '' + ($("#id_barang option:selected").attr('data-value') * $("#qty").val())
+            $('#total').val(formatNumber(total) + ',00')
         },
     });
+
+    $("#qty").on({
+        keyup: function () {
+            let max = parseInt($("#id_barang option:selected").attr('data-max'))
+            if($("#id_barang").val() == id_awal)
+                max = qty_awal
+            if($(this).val() > max)
+                $(this).val(max)
+            let total = '' + ($("#id_barang option:selected").attr('data-value') * $("#qty").val())
+            $('#total').val(formatNumber(total) + ',00')
+        }
+    })
 
     function formatNumber(n) {
         return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".");

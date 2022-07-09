@@ -25,7 +25,7 @@
                                 <label for="id_barang">Pilih Barang <span class="text-danger">*</span></label>
                                 <select name="id_barang" id="id_barang" class="form-control" required>
                                     @foreach ($barang as $item)
-                                        <option value="{{ $item->id }}" data-value="{{ $item->harga_jual }}">{{ $item->nama_brg }}</option>
+                                        <option value="{{ $item->id }}" data-value="{{ $item->harga_jual }}" data-max="{{ $item->qty_brg }}">{{ $item->nama_brg }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -128,6 +128,8 @@
 
     $("#id_barang").on({
         change: function () {
+            $("#qty").val(1)
+
             let harga = $("#id_barang option:selected").attr('data-value')
             $('#harga').val(formatNumber(harga) + ',00')
 
@@ -138,6 +140,9 @@
 
     $("#qty").on({
         keyup: function () {
+            let max = parseInt($("#id_barang option:selected").attr('data-max'))
+            if($(this).val() > max)
+                $(this).val(max)
             let total = '' + ($("#id_barang option:selected").attr('data-value') * $("#qty").val())
             $('#total').val(formatNumber(total) + ',00')
         }
