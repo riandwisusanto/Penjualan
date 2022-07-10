@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="{{ url('storage/logo/'.App\Models\Config::where('id', 1)->first()->logo) }}">
   @include('layouts.vendor.stylesheet')
+  @include('layouts.vendor.javascript')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -48,8 +49,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
-@include('layouts.vendor.javascript')
-@yield('extra_javascript')
 </body>
+@yield('extra_javascript')
 </html>
