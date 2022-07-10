@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $barang    = Barang::sum('qty_brg');
+        $barang    = Barang::count();
+        $sum_barang= Barang::sum('qty_brg');
         $penjualan = Penjualan::count();
         $jual      = Penjualan::with('barang')->where('status', 1)->get();
         $laba      = $jual->reduce(function($acc, $row) {
@@ -19,8 +20,18 @@ class DashboardController extends Controller
 
                         return $acc + $bersih;
                     });
-        $data      = Barang::with('penjualan')->get();
+        $year_now  = date('Y');
+        if(isset($request->year)){
+            $year_now = $request->year;
+        }
+        $data      = Barang::with('penjualan')
+                    ->whereHas('penjualan', function($query) use ($year_now){ 
+                        $query->whereYear('tgl_jual', $year_now); 
+                    })->get();
+        $year      = [
+            2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035
+        ];
         // return $data;
-        return view('dashboard.index', compact('barang', 'penjualan', 'laba', 'data'));
+        return view('dashboard.index', compact('barang', 'penjualan', 'laba', 'sum_barang', 'data', 'year', 'year_now'));
     }
 }

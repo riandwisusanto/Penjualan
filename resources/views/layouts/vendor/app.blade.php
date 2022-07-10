@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>@yield('title')</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ url('storage/logo/'.App\Models\Config::where('id', 1)->first()->logo) }}">
   @include('layouts.vendor.stylesheet')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

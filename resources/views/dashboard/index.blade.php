@@ -14,7 +14,7 @@
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>{{ count($data) }}</h3>
+            <h3>{{ $barang }}</h3>
             <p>Data Barang</p>
           </div>
           <div class="icon">
@@ -26,7 +26,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>{{ $barang }}</h3>
+            <h3>{{ $sum_barang }}</h3>
             <p>Stok Barang</p>
           </div>
           <div class="icon">
@@ -83,6 +83,20 @@
             </div>
           </div>
           <div class="card-body">
+            <form action="{{ url('dashboard') }}" class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <select name="year" class="form-control">
+                    @foreach ($year as $item)
+                        <option value="{{ $item }}" {{ ($item == $year_now) ? 'selected' : '' }}>{{ $item }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Filter</button>
+              </div>
+            </form>
             <div class="chart">
               <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
             </div>

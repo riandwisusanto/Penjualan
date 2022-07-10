@@ -10,6 +10,16 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
+          <form action="{{ url('labarugi') }}" class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <input type="month" name="date" value="{{ $date }}" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+          </form>
             <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -71,7 +81,7 @@
           $('#labarugi').addClass('active');
       });
         $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": false, "paging": false, "ordering": false, "info": false,
+            "responsive": true, "lengthChange": true, "autoWidth": false, "searching": false, "paging": true, "ordering": false, "info": true,
             // "buttons": ["csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     </script>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\ConfigController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LabarugiController;
@@ -33,4 +34,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/barang', BarangController::class);
     Route::resource('/penjualan', PenjualanController::class);
     Route::get('/labarugi', [LabarugiController::class, 'index']);
+    Route::resource('/pengaturan', ConfigController::class);
 });

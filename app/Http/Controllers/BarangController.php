@@ -56,7 +56,8 @@ class BarangController extends Controller
         try {
             $model->save();
         } catch (Exception $e) {
-            return $e->getMessage();
+            session()->flash('warning', $e->getMessage());
+            return redirect("barang");
         }
 
         session()->flash('success', 'Berhasil menyimpan barang');
@@ -70,7 +71,8 @@ class BarangController extends Controller
         try {
             $data->delete();
         } catch (Exception $e) {
-            return $e->getMessage();
+            session()->flash('warning', $e->getMessage());
+            return redirect("barang");
         }
 
         if(file_exists(public_path('storage/image/'.$data->gambar)))
@@ -118,7 +120,8 @@ class BarangController extends Controller
         try {
             $model->save();
         } catch (Exception $e) {
-            return $e->getMessage();
+            session()->flash('warning', $e->getMessage());
+            return redirect("barang");
         }
 
         session()->flash('success', 'Berhasil mengedit barang');

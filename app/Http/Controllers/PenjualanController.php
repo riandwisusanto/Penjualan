@@ -47,7 +47,8 @@ class PenjualanController extends Controller
             $barang->qty_brg = ($barang->qty_brg - $model->qty);
             $barang->save();
         } catch (Exception $e) {
-            return $e->getMessage();
+            session()->flash('warning', $e->getMessage());
+            return redirect("penjualan");
         }
 
         session()->flash('success', 'Berhasil menyimpan transaksi');
@@ -82,7 +83,8 @@ class PenjualanController extends Controller
 
             $model->save();
         } catch (Exception $e) {
-            return $e->getMessage();
+            session()->flash('warning', $e->getMessage());
+            return redirect("penjualan");
         }
 
         session()->flash('success', 'Berhasil mengedit transaksi');
@@ -100,7 +102,8 @@ class PenjualanController extends Controller
             $barang->qty_brg = ($barang->qty_brg + $data->qty);
             $barang->save();
         } catch (Exception $e) {
-            return $e->getMessage();
+            session()->flash('warning', $e->getMessage());
+            return redirect("penjualan");
         }
 
         session()->flash('success', 'Berhasil menghapus transaksi');
