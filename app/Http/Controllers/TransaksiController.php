@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\DetailTransaksi;
 use App\Models\Pembeli;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -34,20 +35,35 @@ class TransaksiController extends Controller
 
         $model            = new Transaksi();
         $model->id        = $id;
-        $model->id_barang = $request->id_barang;
-        $model->qty       = $request->qty;
-        $model->keterangan= $request->ket;      
-        $model->tgl_jual  = date('Y-m-d');
+        $model->id_pembeli    = $request->id_pembeli;       
+        $model->tgl_transaksi = date('Y-m-d');
         $model->status    = (int)$request->lunas;
         if($request->lunas == 1)
             $model->tgl_lunas  = date('Y-m-d');
 
         try {
             $model->save();
+            
+            $latest_id     = DetailTransaksi::orderBy('id', 'desc')->first();
+            $id_detail     = 1;
+            if($latest != null)
+                $id_detail = $latest_id->id + 1;
 
-            $barang = Barang::where('id', $model->id_barang)->first();
-            $barang->qty_brg = ($barang->qty_brg - $model->qty);
-            $barang->save();
+            for ($i=0; $i < count($request->id_barang); $i++) { 
+                $model_det            = new DetailTransaksi();
+                $model_det->id        = $id_detail;
+                $model_det->id_transaksi    = $id;       
+                $model_det->id_barang       = $request->id_barang[$i];
+                $model_det->qty       = $request->qty[$i];
+
+                $model_det->save();
+
+                $barang = Barang::where('id', $request->id_barang[$i])->first();
+                $barang->qty_brg = (int)$barang->qty_brg - (int)$request->qty[$i];
+                $barang->save();
+
+                $id_detail += 1;
+            }
         } catch (Exception $e) {
             session()->flash('warning', $e->getMessage());
             return redirect("transaksi");
