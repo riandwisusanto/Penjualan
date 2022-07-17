@@ -1,10 +1,10 @@
 @extends('layouts.vendor.app')
-@section('title','Data Barang')
+@section('title','Data Pembeli')
 @section('home-href')
   {{ url('dashboard') }}
 @endsection
 @section('home', 'Dashboard')
-@section('breadcrumb','Barang')
+@section('breadcrumb','Pembeli')
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                  <a href="{{ url('barang/create') }}" class="btn btn-sm btn-primary"><b>+</b> Tambah</a>
+                  <a href="{{ url('pembeli/create') }}" class="btn btn-sm btn-primary"><b>+</b> Tambah</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -30,44 +30,24 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <!-- <th>ID.</th> -->
-                      <th>Kode Barang</th>
-                      <th>Gambar</th>
-                      <th>Tanggal</th>
-                      <th>Nomor SKU</th>
-                      <th>Nama Barang</th>
-                      <!-- <th>Merk</th> -->
-                      <!-- <th>Warna</th> -->
-                      <th>Stok</th>
-                      <th>Harga Beli</th>
-                      <th>Harga Jual</th>
-                      <th>Diskon</th>
-                      <!-- <th>Harga Jual Diskon</th> -->
-                      <th>Keterangan</th>
+                      <th>ID.</th>
+                      <th>Nama</th>
+                      <th>Alamat</th>
+                      <th>No. HP</th>
                       <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($data as $item)
                         <tr class="text-center">
-                          <!-- <td>{{ $item->id }}</td> -->
-                          <td>{{ $item->kode_brg }}</td>
-                          <td><img src="{{ url('storage/image/'.$item->gambar) }}" class="img-fluid" width="70px" height="70px"></td>
-                          <td>{{ $item->tanggal }}</td>
-                          <td>{{ $item->no_sku }}</td>
-                          <td>{{ $item->nama_brg }}</td>
-                          <!-- <td>{{ $item->merk }}</td> -->
-                          <!-- <td>{{ $item->warna }}</td> -->
-                          <td>{{ $item->qty_brg }}</td>
-                          <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->harga_beli)) }},00</td>
-                          <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->harga_jual)) }},00</td>
-                          <td>{{ $item->diskon }}%</td>
-                          <!-- <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->diskon * $item->harga_jual / 100)) }},00</td> -->
-                          <td>{{ $item->keterangan }}</td>
+                          <td>{{ $item->id }}</td>
+                          <td>{{ $item->nama }}</td>
+                          <td>{{ $item->alamat }}</td>
+                          <td>{{ $item->no_hp }}</td>
                           <td>
                             <div class="btn-group">
-                              <a href="{{ url('/barang/'.$item->id) }}" class="btn btn-sm btn-success">Edit</a>
-                              <form method="POST" action="{{ url('/barang/'.$item->id) }}">
+                              <a href="{{ url('/pembeli/'.$item->id) }}" class="btn btn-sm btn-success">Edit</a>
+                              <form method="POST" action="{{ url('/pembeli/'.$item->id) }}">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <input type="submit" class="btn btn-sm btn-danger delete" value="Hapus">
@@ -93,7 +73,7 @@
 @section('extra_javascript')
     <script>
       $(document).ready(function (){
-          $('#barang').addClass('active');
+          $('#pembeli').addClass('active');
       });
         $("#example1").DataTable({
             "responsive": true, "lengthChange": true, "autoWidth": false,
@@ -108,7 +88,7 @@
           e.preventDefault()
           let vm = $(e.target).closest('form')
           swal({
-                title: "Hapus Barang?",
+                title: "Hapus Pembeli?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -120,7 +100,7 @@
                 } else if (
                   result.dismiss === swal.DismissReason.cancel
                 ) {
-                  swal("Batal", "Batal menghapus barang", "error");
+                  swal("Batal", "Batal menghapus pembeli", "error");
                 }
                 swall.closeModal();
               });

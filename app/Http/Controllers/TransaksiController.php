@@ -3,34 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\Penjualan;
+use App\Models\Pembeli;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Exception;
 
-class PenjualanController extends Controller
+class TransaksiController extends Controller
 {
     public function index()
     {
-        $data = Penjualan::with('barang')->orderBy('id', 'desc')->get();
+        $data = Transaksi::with('pembeli')->orderBy('id', 'desc')->get();
 
-        return view('penjualan.index', compact('data'));
+        return view('transaksi.index', compact('data'));
     }
 
     public function create()
     {
-        $barang = Barang::orderBy('id', 'desc')->where('qty_brg', '>', 0)->get();
+        $pembeli = Pembeli::orderBy('id', 'desc')->get();
+        $barang  = Barang::orderBy('id', 'desc')->where('qty_brg', '>', 0)->get();
 
-        return view('penjualan.create', compact('barang'));
+        return view('transaksi.create', compact('barang', 'pembeli'));
     }
 
     public function store(Request $request)
     {
-        $latest     = Penjualan::orderBy('id', 'desc')->first();
+        $latest     = Transaksi::orderBy('id', 'desc')->first();
         $id         = 1;
         if($latest != null)
             $id     = $latest->id + 1;
 
-        $model            = new Penjualan();
+        $model            = new Transaksi();
         $model->id        = $id;
         $model->id_barang = $request->id_barang;
         $model->qty       = $request->qty;
@@ -48,24 +50,24 @@ class PenjualanController extends Controller
             $barang->save();
         } catch (Exception $e) {
             session()->flash('warning', $e->getMessage());
-            return redirect("penjualan");
+            return redirect("transaksi");
         }
 
         session()->flash('success', 'Berhasil menyimpan transaksi');
-        return redirect("penjualan");
+        return redirect("transaksi");
     }
 
     public function show($id)
     {
-        $data   = Penjualan::where('id', $id)->first();
+        $data   = Transaksi::where('id', $id)->first();
         $barang = Barang::orderBy('id', 'desc')->get();
 
-        return view('penjualan.edit', compact('data', 'barang'));
+        return view('transaksi.edit', compact('data', 'barang'));
     }
 
     public function update(Request $request, $id)
     {
-        $model            = Penjualan::where('id', $id)->first();
+        $model            = Transaksi::where('id', $id)->first();
         $qty_awal         = $model->qty;
         $model->id_barang = $request->id_barang;
         $model->keterangan= $request->ket;      
@@ -84,16 +86,16 @@ class PenjualanController extends Controller
             $model->save();
         } catch (Exception $e) {
             session()->flash('warning', $e->getMessage());
-            return redirect("penjualan");
+            return redirect("transaksi");
         }
 
         session()->flash('success', 'Berhasil mengedit transaksi');
-        return redirect("penjualan");
+        return redirect("transaksi");
     }
 
     public function destroy(Request $request, $id)
     {
-        $data = Penjualan::where('id', $id)->first();
+        $data = Transaksi::where('id', $id)->first();
 
         try {
             $data->delete();
@@ -103,10 +105,10 @@ class PenjualanController extends Controller
             $barang->save();
         } catch (Exception $e) {
             session()->flash('warning', $e->getMessage());
-            return redirect("penjualan");
+            return redirect("transaksi");
         }
 
         session()->flash('success', 'Berhasil menghapus transaksi');
-        return redirect("penjualan");
+        return redirect("transaksi");
     }
 }

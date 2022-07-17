@@ -6,7 +6,8 @@ use App\Http\Controllers\ConfigController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LabarugiController;
-use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PembeliController;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,8 @@ Route::get('logout', [AuthController::class, 'signOut'])->name('signout');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::resource('/barang', BarangController::class);
-    Route::resource('/penjualan', PenjualanController::class);
+    Route::resource('/transaksi', TransaksiController::class);
     Route::get('/labarugi', [LabarugiController::class, 'index']);
     Route::resource('/pengaturan', ConfigController::class);
+    Route::resource('/pembeli', PembeliController::class);
 });

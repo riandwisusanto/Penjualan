@@ -1,7 +1,7 @@
-@extends('layouts.vendor.app') @section('title','Tambah Barang')
+@extends('layouts.vendor.app') @section('title','Edit Barang')
 @section('home-href')
 {{ url("barang") }}
-@endsection @section('home', 'Barang') @section('breadcrumb','Tambah Barang')
+@endsection @section('home', 'Barang') @section('breadcrumb','Edit Barang')
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -23,6 +23,19 @@
                     {{ method_field('PUT') }}
                         <div class="card-body">
                             <div class="form-group">
+                                <label for="no_sku">Nomor SKU <span class="text-danger">*</span></label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="no_sku"
+                                    placeholder="Nomor SKU"
+                                    autocomplete="off"
+                                    name="no_sku"
+                                    required
+                                    value="{{ $data->no_sku }}"
+                                />
+                            </div>
+                            <div class="form-group">
                                 <label for="nama_brg">Nama Barang <span class="text-danger">*</span></label>
                                 <input
                                     type="text"
@@ -33,6 +46,43 @@
                                     name="nama_brg"
                                     value="{{ $data->nama_brg }}"
                                     required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="merk">Merk</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="merk"
+                                    placeholder="Merk"
+                                    autocomplete="off"
+                                    value="{{ $data->merk }}"
+                                    name="merk"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="kode_brg">Kode Barang <span class="text-danger">*</span></label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="kode_brg"
+                                    placeholder="Kode Barang"
+                                    autocomplete="off"
+                                    name="kode_brg"
+                                    value="{{ $data->kode_brg }}"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="warna">Warna</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="warna"
+                                    placeholder="Warna"
+                                    autocomplete="off"
+                                    name="warna"
+                                    value="{{ $data->warna }}"
                                 />
                             </div>
                             <div class="form-group">

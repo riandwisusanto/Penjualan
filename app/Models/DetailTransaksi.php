@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Barang extends Model
+class DetailTransaksi extends Model
 {
     /** @var Type $var description */
-    protected $table = 'barang';
+    protected $table = 'detail_transaksi';
 
     /** @var Type $var description */
     protected $primaryKey = 'id';
@@ -18,8 +19,8 @@ class Barang extends Model
     /** @var Type $var description */
     public $incrementing = false;
 
-    public function transaksi()
+    public function barang()
     {
-        return $this->hasMany('App\Models\Transaksi', 'id_barang', 'id');
+        return $this->hasOne('App\Models\Barang', 'id', 'id_barang');
     }
 }

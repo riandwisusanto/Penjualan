@@ -1,10 +1,10 @@
 @extends('layouts.vendor.app')
-@section('title','Data Penjualan')
+@section('title','Data Transaksi')
 @section('home-href')
   {{ url('dashboard') }}
 @endsection
 @section('home', 'Dashboard')
-@section('breadcrumb','Penjualan')
+@section('breadcrumb','Transaksi')
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                  <a href="{{ url('penjualan/create') }}" class="btn btn-sm btn-primary"><b>+</b> Tambah Transaksi</a>
+                  <a href="{{ url('transaksi/create') }}" class="btn btn-sm btn-primary"><b>+</b> Tambah Transaksi</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -32,10 +32,8 @@
                     <tr>
                       <th>ID.</th>
                       <th>Tanggal</th>
-                      <th>Nama Barang</th>
-                      <th>Jumlah</th>
-                      <th>Harga</th>
-                      <th>Total</th>
+                      <th>Nama Pembeli</th>
+                      <th>Total Harga</th>
                       <th>Status</th>
                       <th>Tanggal Lunas</th>
                       <th>Keterangan</th>
@@ -46,11 +44,9 @@
                       @foreach ($data as $item)
                       <tr class="text-center">
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->tgl_jual }}</td>
-                        <td>{{ $item->barang->nama_brg }}</td>
-                        <td>{{ $item->qty }}</td>
-                        <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->barang->harga_jual)) }},00</td>
-                        <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->barang->harga_jual * $item->qty)) }},00</td>
+                        <td>{{ $item->tgl_transaksi }}</td>
+                        <td>{{ $item->pembeli->nama }}</td>
+                        <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->total)) }},00</td>
                         <td>
                           @if ($item->status == 0)
                             <span class="text-danger">Belum Lunas</span>
@@ -62,8 +58,8 @@
                         <td>{{ $item->keterangan }}</td>
                         <td>
                           <div class="btn-group">
-                            <a href="{{ url('/penjualan/'.$item->id) }}" class="btn btn-sm btn-success">Edit</a>
-                            <form method="POST" action="{{ url('/penjualan/'.$item->id) }}">
+                            <a href="{{ url('/transaksi/'.$item->id) }}" class="btn btn-sm btn-success">Edit</a>
+                            <form method="POST" action="{{ url('/transaksi/'.$item->id) }}">
                               {{ csrf_field() }}
                               {{ method_field('DELETE') }}
                               <input type="submit" class="btn btn-sm btn-danger delete" value="Hapus">
@@ -89,7 +85,7 @@
 @section('extra_javascript')
     <script>
       $(document).ready(function (){
-          $('#penjualan').addClass('active');
+          $('#transaksi').addClass('active');
       });
         $("#example1").DataTable({
             "responsive": true, "lengthChange": true, "autoWidth": false,
@@ -104,7 +100,7 @@
           e.preventDefault()
           let vm = $(e.target).closest('form')
           swal({
-                title: "Hapus Penjualan?",
+                title: "Hapus transaksi?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -116,7 +112,7 @@
                 } else if (
                   result.dismiss === swal.DismissReason.cancel
                 ) {
-                  swal("Batal", "Batal menghapus penjualan", "error");
+                  swal("Batal", "Batal menghapus transaksi", "error");
                 }
                 swall.closeModal();
               });

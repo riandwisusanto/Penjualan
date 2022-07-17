@@ -31,15 +31,21 @@
             </a>           
           </li>
           <li class="nav-item">
+            <a id="pembeli" href="/pembeli" class="nav-link">
+              <i class="nav-icon fas fa-fw fa-users"></i>
+              <span>Pembeli</span>
+            </a>
+          </li> 
+          <li class="nav-item">
             <a id="barang" href="/barang" class="nav-link">
               <i class="nav-icon fas fa-fw fa-folder-open"></i>
               <span>Barang</span>
             </a>
           </li> 
           <li class="nav-item">
-            <a id="penjualan" href="/penjualan" class="nav-link">
+            <a id="transaksi" href="/transaksi" class="nav-link">
               <i class="nav-icon fas fa-fw fa-poll-h"></i>
-              <span>Penjualan</span>
+              <span>Transaksi</span>
             </a>
           </li> 
           <li class="nav-item">

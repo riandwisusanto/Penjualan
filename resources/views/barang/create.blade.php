@@ -22,6 +22,18 @@
                     @csrf
                         <div class="card-body">
                             <div class="form-group">
+                                <label for="no_sku">Nomor SKU <span class="text-danger">*</span></label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="no_sku"
+                                    placeholder="Nomor SKU"
+                                    autocomplete="off"
+                                    name="no_sku"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
                                 <label for="nama_brg">Nama Barang <span class="text-danger">*</span></label>
                                 <input
                                     type="text"
@@ -31,6 +43,40 @@
                                     autocomplete="off"
                                     name="nama_brg"
                                     required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="merk">Merk</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="merk"
+                                    placeholder="Merk"
+                                    autocomplete="off"
+                                    name="merk"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="kode_brg">Kode Barang <span class="text-danger">*</span></label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="kode_brg"
+                                    placeholder="Kode Barang"
+                                    autocomplete="off"
+                                    name="kode_brg"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="warna">Warna</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="warna"
+                                    placeholder="Warna"
+                                    autocomplete="off"
+                                    name="warna"
                                 />
                             </div>
                             <div class="form-group">
@@ -68,6 +114,19 @@
                                     data-type="currency"
                                     placeholder="Harga Jual"
                                     autocomplete="off"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="diskon">Diskon Barang (%)</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="diskon"
+                                    name="diskon"
+                                    placeholder="Diskon Barang"
+                                    step="any"
+                                    autocomplete="off"
+                                    value="0"
                                 />
                             </div>
                             <div class="form-group">

@@ -18,12 +18,17 @@ class CreateBarangTable extends Migration
         Schema::create('barang', function (Blueprint $table) {
             $table->id();
             $table->string('gambar', 255)->nullable();
+            $table->integer('no_sku')->length(11)->nullable();
             $table->date('tanggal');
             $table->string('nama_brg', 255);
+            $table->string('merk', 255)->nullable();
+            $table->string('kode_brg', 255)->nullable();
+            $table->string('warna', 255)->nullable();
             $table->integer('qty_brg')->length(11);
             $table->text('keterangan')->nullable();
             $table->integer('harga_beli')->length(11);
             $table->integer('harga_jual')->length(11);
+            $table->integer('diskon')->length(11)->default(0);
         });
     }
 
