@@ -32,7 +32,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
+                                    <div class="form-group text-right">
+                                        <a href="{{ url('pembeli/create') }}" class="btn btn-warning mt-4">+ Tambah Pembeli</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
                                     <div class="form-group text-right">
                                         <button type="button" onclick="tambahBarang()" class="btn btn-success mt-4">+ Tambah Barang</button>
                                     </div>
