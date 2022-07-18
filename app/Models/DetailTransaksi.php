@@ -23,4 +23,9 @@ class DetailTransaksi extends Model
     {
         return $this->hasOne('App\Models\Barang', 'id', 'id_barang');
     }
+
+    public function transaksi()
+    {
+        return $this->hasOne('App\Models\Transaksi', 'id', 'id_transaksi');
+    }
 }

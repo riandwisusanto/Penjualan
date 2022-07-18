@@ -39,7 +39,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{ $penjualan }}</h3>
+            <h3>{{ $transaksi }}</h3>
 
             <p>Data Penjualan</p>
           </div>
@@ -126,8 +126,8 @@
   data.forEach(row => {
     let color = random_rgba()
     var perbulan = [0,0,0,0,0,0,0,0,0,0,0,0]
-    row.penjualan.forEach(acc => {
-      let bulan = parseInt(acc.tgl_jual.split('-')[1])
+    row.detailtransaksi.forEach(acc => {
+      let bulan = parseInt(acc.transaksi.tgl_transaksi.split('-')[1])
       perbulan[bulan - 1] = parseInt(acc.qty);
     })
     let new_data = {

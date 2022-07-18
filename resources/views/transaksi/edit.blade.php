@@ -1,7 +1,7 @@
-@extends('layouts.vendor.app') @section('title','Tambah Transaksi')
+@extends('layouts.vendor.app') @section('title','Edit Transaksi')
 @section('home-href')
 {{ url("transaksi") }}
-@endsection @section('home', 'Transaksi') @section('breadcrumb','Tambah Transaksi')
+@endsection @section('home', 'Transaksi') @section('breadcrumb','Edit Transaksi')
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -10,16 +10,17 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Tambah Transaksi</h3>
+                        <h3 class="card-title">Edit Transaksi #{{ $data->id }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <form
                         method="post"
-                        action="{{ url('/transaksi') }}"
+                        action="{{ url('/transaksi/'.$data->id) }}"
                         enctype="multipart/form-data"
                     >
                     @csrf
+                    {{ method_field('PUT') }}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-8">
@@ -27,7 +28,8 @@
                                         <label for="id_pembeli">Pembeli <span class="text-danger">*</span></label>
                                         <select name="id_pembeli" id="id_pembeli" class="form-control" required>
                                             @foreach ($pembeli as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                <option value="{{ $item->id }}" {{ $data->id_pembeli == $item->id ? 'selected' : ''}}
+                                                    >{{ $item->nama }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -39,64 +41,79 @@
                                 </div>
                             </div>
                             <table id="form-table" class="table table-bordered table-striped">
-                                <tr>
-                                    <td>
-                                        <div class="form-group">
-                                            <label for="id_barang">Pilih Barang <span class="text-danger">*</span></label>
-                                            <select name="id_barang[]" id="id_barang-0" class="form-control" required>
-                                                @foreach ($barang as $item)
-                                                    <option value="{{ $item->id }}" data-value="{{ $item->harga_jual }}" data-max="{{ $item->qty_brg }}" data-disc="{{ $item->diskon }}">{{ $item->nama_brg }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group">
-                                            <label for="harga">Harga</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="harga-0"
-                                                name="harga[]"
-                                                data-type="currency"
-                                                value="0,00"
-                                                autocomplete="off"
-                                                readonly
-                                            />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group">
-                                            <label for="qty">Jumlah <span class="text-danger">*</span></label>
-                                            <input
-                                                type="number"
-                                                class="form-control"
-                                                id="qty-0"
-                                                name="qty[]"
-                                                placeholder="Jumlah Barang"
-                                                step="any"
-                                                value="1"
-                                                autocomplete="off"
-                                                required
-                                            />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group">
-                                            <label for="total">Total</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="total-0"
-                                                name="total[]"
-                                                data-type="currency"
-                                                value="0,00"
-                                                autocomplete="off"
-                                                readonly
-                                            />
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach ($data->detail as $key => $detail)
+                                    <tr id="tr-{{ $key }}">
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="id_barang">Pilih Barang <span class="text-danger">*</span></label>
+                                                <select name="id_barang[]" id="id_barang-{{ $key }}" class="form-control" required>
+                                                    @foreach ($barang as $item)
+                                                        <option value="{{ $item->id }}" 
+                                                            data-value="{{ $item->harga_jual }}" 
+                                                            data-max="{{ $item->qty_brg }}"
+                                                            data-disc="{{ $item->diskon }}"
+                                                            {{ $detail->id_barang == $item->id ? 'selected' : ''}}
+                                                            >{{ $item->nama_brg }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="harga">Harga</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="harga-{{ $key }}"
+                                                    name="harga[]"
+                                                    data-type="currency"
+                                                    value="0,00"
+                                                    autocomplete="off"
+                                                    readonly
+                                                />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="qty">Jumlah <span class="text-danger">*</span></label>
+                                                <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    id="qty-{{ $key }}"
+                                                    name="qty[]"
+                                                    placeholder="Jumlah Barang"
+                                                    step="any"
+                                                    value="1"
+                                                    autocomplete="off"
+                                                    required
+                                                />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="total">Total</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="total-{{ $key }}"
+                                                    name="total[]"
+                                                    data-type="currency"
+                                                    value="0,00"
+                                                    autocomplete="off"
+                                                    readonly
+                                                />
+                                            </div>
+                                        </td>
+                                        @if($key > 0)
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for=""></label>
+                                                    <button type="button" class="btn btn-danger" onclick="hapusTable('<?= $key ?>')">X</button>
+                                                </div>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
                             </table>
                             <div class="form-group">
                                 <label for="total_all">Total Keseluruhan</label>
@@ -113,11 +130,11 @@
                             <div>
                                 <label for="lunas">Lunas</label>
                                 <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="lunas" name="lunas" value="1" checked>
+                                    <input type="radio" class="form-check-input" id="lunas" name="lunas" value="1" {{ $data->status == 1 ? 'checked' : ''}}>
                                     <label class="form-check-label" for="radio2">Lunas</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="radio" class="form-check-input" id="lunas" name="lunas" value="0">
+                                    <input type="radio" class="form-check-input" id="lunas" name="lunas" value="0" {{ $data->status == 0 ? 'checked' : ''}}>
                                     <label class="form-check-label" for="radio2">Belum Lunas</label>
                                 </div>
                             </div>
@@ -129,7 +146,7 @@
                                     rows="3"
                                     class="form-control"
                                     autocomplete="off"
-                                ></textarea>
+                                >{{ $data->keterangan }}</textarea>
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -160,49 +177,72 @@
     $(document).ready(function (){
         $('#transaksi').addClass('active');
     });
-    // Jquery Dependency
-    var jumlahBarang = JSON.parse('<?= $barang ?>').length
-    let harga = $("#id_barang-0 option:selected").attr('data-value') - ($("#id_barang-0 option:selected").attr('data-value') * $("#id_barang-0 option:selected").attr('data-disc') / 100)
-    $('#harga-0').val(formatNumber(''+harga) + ',00')
 
-    let total = '' + (harga * $("#qty-0").val())
-    $('#total-0').val(formatNumber(total) + ',00')
+    var detail = JSON.parse('<?= $data->detail ?>')
+    var jumlahBarang = JSON.parse('<?= $barang ?>').length - detail.length
+    for (let index = 0; index < detail.length; index++) {
+        $("#qty-"+index+"").val(detail[index].qty)
+        let qty_awal = parseInt($("#id_barang-"+index+" option:selected").attr('data-max')) + parseInt($("#qty-"+index).val())
+        let id_awal  = $("#id_barang-"+index).val()
 
-    $('#total_all').val(formatNumber(total) + ',00')
+        let harga = $("#id_barang-"+index+" option:selected").attr('data-value') - ($("#id_barang-"+index+" option:selected").attr('data-value') * $("#id_barang-"+index+" option:selected").attr('data-disc') / 100)
+        $('#harga-'+index).val(formatNumber(''+harga) + ',00')
 
-    $("#id_barang-0").on({
-        change: function () {
-            $("#qty-0").val(1)
+        let total = '' + (harga * $("#qty-"+index+"").val())
+        $('#total-'+index).val(formatNumber(total) + ',00')
 
-            let harga = $("#id_barang-0 option:selected").attr('data-value') - ($("#id_barang-0 option:selected").attr('data-value') * $("#id_barang-0 option:selected").attr('data-disc') / 100)
-            $('#harga-0').val(formatNumber(''+harga) + ',00')
+        totalAll()
 
-            let total = '' + (harga * $("#qty-0").val())
-            $('#total-0').val(formatNumber(total) + ',00')
+        $("#id_barang-"+index+"").on({
+            change: function () {
+                $("#qty-"+index+"").val(1)
 
-            totalAll()
-        },
-    });
+                let harga = $("#id_barang-"+index+" option:selected").attr('data-value') - ($("#id_barang-"+index+" option:selected").attr('data-value') * $("#id_barang-"+index+" option:selected").attr('data-disc') / 100)
+                $('#harga-'+index).val(formatNumber(''+harga) + ',00')
 
-    $("#qty-0").on({
-        change: function () {
-            let max = parseInt($("#id_barang-0 option:selected").attr('data-max'))
-            if($(this).val() > max)
-                $(this).val(max)
-            let total = '' + (($("#id_barang-0 option:selected").attr('data-value') - ($("#id_barang-0 option:selected").attr('data-value') * $("#id_barang-0 option:selected").attr('data-disc') / 100)) * $("#qty-0").val())
-            $('#total-0').val(formatNumber(total) + ',00')
+                let total = '' + (harga * $("#qty-"+index+"").val())
+                $('#total-'+index).val(formatNumber(total) + ',00')
 
-            totalAll()
-        }
-    })
+                totalAll()
+            },
+        });
+
+        $("#qty-"+index+"").on({
+            change: function () {
+                let max = parseInt($("#id_barang-"+index+" option:selected").attr('data-max'))
+                if($("#id_barang-"+index+"").val() == id_awal)
+                    max = qty_awal
+                if($(this).val() > max)
+                    $(this).val(max)
+                let total = '' + (($("#id_barang-"+index+" option:selected").attr('data-value') - ($("#id_barang-"+index+" option:selected").attr('data-value') * $("#id_barang-"+index+" option:selected").attr('data-disc') / 100)) * $("#qty-"+index+"").val())
+                $('#total-'+index).val(formatNumber(total) + ',00')
+
+                totalAll()
+            }
+        })
+    }
 
     function formatNumber(n) {
         return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
-    var i = 0
+    function totalAll(){
+        let qty_all      = $("input[name='qty[]']").map(function(){return $(this).val();}).get();
+        let harga_barang = $("select[name='id_barang[]'] option:selected").map(function(){return $(this).attr('data-value');}).get();
+        let diskon_barang= $("select[name='id_barang[]'] option:selected").map(function(){return $(this).attr('data-disc');}).get();
+        
+        var total_all  = 0
+        var is = 0
+        qty_all.forEach(row => {
+            total_all += row * (harga_barang[is] - (harga_barang[is] * diskon_barang[is] / 100))
+            is++
+        })
+        $('#total_all').val(formatNumber(""+total_all) + ',00')
+    }
+
+    var i = $("input[name='qty[]']").length - 1
     function tambahBarang() {
-        if(jumlahBarang < 2)
+        if(jumlahBarang < 1)
             swal('Data Barang Habis')
         else{
             i += 1
@@ -310,25 +350,12 @@
     }
 
     function hapusTable(row) {
+        console.log(row)
         // $('#form-table tr:eq('+row+')').remove()
         $('#tr-'+row).remove()
         jumlahBarang += 1
 
         totalAll()
-    }
-
-    function totalAll(){
-        let qty_all      = $("input[name='qty[]']").map(function(){return $(this).val();}).get();
-        let harga_barang = $("select[name='id_barang[]'] option:selected").map(function(){return $(this).attr('data-value');}).get();
-        let diskon_barang= $("select[name='id_barang[]'] option:selected").map(function(){return $(this).attr('data-disc');}).get();
-        
-        var total_all  = 0
-        var is = 0
-        qty_all.forEach(row => {
-            total_all += row * (harga_barang[is] - (harga_barang[is] * diskon_barang[is] / 100))
-            is++
-        })
-        $('#total_all').val(formatNumber(""+total_all) + ',00')
     }
 </script>
 @endsection

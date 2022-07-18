@@ -18,8 +18,8 @@ class Barang extends Model
     /** @var Type $var description */
     public $incrementing = false;
 
-    public function transaksi()
+    public function detailtransaksi()
     {
-        return $this->hasMany('App\Models\Transaksi', 'id_barang', 'id');
+        return $this->hasMany('App\Models\DetailTransaksi', 'id_barang', 'id');
     }
 }

@@ -27,24 +27,26 @@
                     <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Tanggal</th>
                       <th>Nama Barang</th>
                       <th>Jumlah</th>
                       <th>Harga Beli</th>
                       <th>Harga Jual</th>
                       <th>Selisih</th>
+                      <th>Diskon</th>
+                      <th>Total</th>
                     </tr>
                     </thead>
                     <tbody>
                       @foreach ($data as $key => $item)
                       <tr class="text-center">
                         <td>{{ $key + 1 }}</td>
-                        <td>{{ $item->tgl_jual }}</td>
                         <td>{{ $item->barang->nama_brg }}</td>
                         <td>{{ $item->qty }}</td>
                         <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->barang->harga_beli)) }},00</td>
                         <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->barang->harga_jual)) }},00</td>
                         <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->barang->harga_jual - $item->barang->harga_beli)) }},00</td>
+                        <td>{{ $item->barang->diskon }}%</td>
+                        <td class="text-right">Rp. {{ str_replace(',', '.', number_format((($item->barang->harga_jual - $item->barang->harga_beli) - (($item->barang->harga_jual - $item->barang->harga_beli) * $item->barang->diskon / 100)) * $item->qty)) }},00</td>
                       </tr>
                       @endforeach
                     </tfoot>

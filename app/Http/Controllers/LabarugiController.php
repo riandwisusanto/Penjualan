@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Penjualan;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
 class LabarugiController extends Controller
@@ -13,16 +13,23 @@ class LabarugiController extends Controller
         if(isset($request->date))
             $date = $request->date;
 
-        $data = Penjualan::with('barang')
-                ->where('tgl_jual', 'like', '%'.$date.'%')
+        $data_transaksi = Transaksi::with('detail.barang')
+                ->where('tgl_transaksi', 'like', '%'.$date.'%')
                 ->where('status', 1)
                 ->orderBy('id', 'desc')
                 ->get();
-        $laba_kotor  = $data->reduce(function($acc, $row) {
-                            $kotor  = ($row->barang->harga_jual - $row->barang->harga_beli) * $row->qty; 
+        $laba_kotor = 0;
+        $data = [];
+        foreach ($data_transaksi as $value) {
+            foreach ($value->detail as $val) {
+                $kotor = $val->barang->harga_jual - $val->barang->harga_beli;
+                $kotor = $kotor - ($kotor * $val->barang->diskon / 100);
+                $kotor = $kotor * $val->qty;
+                $laba_kotor += $kotor;
 
-                            return $acc + $kotor;
-                        });
+                array_push($data, $val);
+            }
+        }
         $min         = 10 * $laba_kotor / 100;
         $laba_bersih = $laba_kotor - $min;
 
