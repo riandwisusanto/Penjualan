@@ -45,7 +45,11 @@
                       <tr class="text-center">
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->tgl_transaksi }}</td>
-                        <td>{{ $item->pembeli->nama }}</td>
+                        @if ($item->pembeli)
+                          <td>{{ $item->pembeli->nama }}</td>
+                        @else
+                          <td>-</td>
+                        @endif
                         <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->total)) }},00</td>
                         <td>
                           @if ($item->status == 0)

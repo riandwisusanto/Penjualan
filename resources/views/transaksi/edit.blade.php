@@ -25,8 +25,9 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="id_pembeli">Pembeli <span class="text-danger">*</span></label>
-                                        <select name="id_pembeli" id="id_pembeli" class="form-control" required>
+                                        <label for="id_pembeli">Pembeli</label>
+                                        <select name="id_pembeli" id="id_pembeli" class="form-control">
+                                            <option value="0" {{ $data->id_pembeli == 0 ? 'selected' : ''}}>Pilih Pembeli</option>
                                             @foreach ($pembeli as $item)
                                                 <option value="{{ $item->id }}" {{ $data->id_pembeli == $item->id ? 'selected' : ''}}
                                                     >{{ $item->nama }}</option>
@@ -34,7 +35,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
+                                    <div class="form-group text-right">
+                                        <a href="{{ url('pembeli/create') }}" class="btn btn-warning mt-4">+ Tambah Pembeli</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
                                     <div class="form-group text-right">
                                         <button type="button" onclick="tambahBarang()" class="btn btn-success mt-4">+ Tambah Barang</button>
                                     </div>

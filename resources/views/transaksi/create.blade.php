@@ -24,8 +24,9 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="id_pembeli">Pembeli <span class="text-danger">*</span></label>
-                                        <select name="id_pembeli" id="id_pembeli" class="form-control" required>
+                                        <label for="id_pembeli">Pembeli</label>
+                                        <select name="id_pembeli" id="id_pembeli" class="form-control">
+                                            <option value="0">Pilih Pembeli</option>
                                             @foreach ($pembeli as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                             @endforeach
