@@ -18,8 +18,8 @@ class CreateTransaksiTable extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->integer('id_pembeli');
-            $table->date('tgl_transaksi')->nullable();
-            $table->date('tgl_lunas')->nullable();
+            $table->dateTime('tgl_transaksi')->nullable();
+            $table->dateTime('tgl_lunas')->nullable();
             $table->integer('status');
             $table->text('keterangan')->nullable();
         });

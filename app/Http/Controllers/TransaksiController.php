@@ -36,10 +36,10 @@ class TransaksiController extends Controller
         $model            = new Transaksi();
         $model->id        = $id;
         $model->id_pembeli    = $request->id_pembeli;       
-        $model->tgl_transaksi = date('Y-m-d');
+        $model->tgl_transaksi = date('Y-m-d H:i:s');
         $model->status    = (int)$request->lunas;
         if($request->lunas == 1)
-            $model->tgl_lunas  = date('Y-m-d');
+            $model->tgl_lunas  = date('Y-m-d H:i:s');
 
         try {
             $model->save();
@@ -88,10 +88,10 @@ class TransaksiController extends Controller
     {
         $model            = Transaksi::where('id', $id)->first();
         $model->id_pembeli    = $request->id_pembeli;       
-        $model->tgl_transaksi = date('Y-m-d');
+        $model->tgl_transaksi = date('Y-m-d H:i:s');
         $model->status    = (int)$request->lunas;
         if($request->lunas == 1)
-            $model->tgl_lunas  = date('Y-m-d');
+            $model->tgl_lunas  = date('Y-m-d H:i:s');
 
         try {
             $model->save();

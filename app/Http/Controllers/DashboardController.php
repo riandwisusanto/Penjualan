@@ -19,8 +19,8 @@ class DashboardController extends Controller
         foreach ($data_jual as $value) {
             foreach ($value->detail as $val) {
                 $kotor = $val->barang->harga_jual - $val->barang->harga_beli;
-                $kotor = $kotor - ($kotor * $val->barang->diskon / 100);
                 $kotor = $kotor * $val->qty;
+                $kotor = $kotor - ($kotor * $val->diskon / 100);
                 $jual += $kotor;
             }
         }
