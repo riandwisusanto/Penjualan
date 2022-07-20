@@ -41,7 +41,7 @@
                       <th>Stok</th>
                       <th>Harga Beli</th>
                       <th>Harga Jual</th>
-                      <th>Diskon</th>
+                      <!-- <th>Diskon</th> -->
                       <!-- <th>Harga Jual Diskon</th> -->
                       <th>Keterangan</th>
                       <th>Aksi</th>
@@ -61,7 +61,7 @@
                           <td>{{ $item->qty_brg }}</td>
                           <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->harga_beli)) }},00</td>
                           <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->harga_jual)) }},00</td>
-                          <td>{{ $item->diskon }}%</td>
+                          <!-- <td>{{ $item->diskon }}%</td> -->
                           <!-- <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->diskon * $item->harga_jual / 100)) }},00</td> -->
                           <td>{{ $item->keterangan }}</td>
                           <td>

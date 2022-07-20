@@ -20,6 +20,7 @@ class CreateDetailTransaksiTable extends Migration
             $table->integer('id_transaksi')->length(11);
             $table->integer('id_barang')->length(11);
             $table->integer('qty')->length(11);
+            $table->integer('diskon')->length(11)->default(0);
             $table->text('keterangan')->nullable();
         });
     }

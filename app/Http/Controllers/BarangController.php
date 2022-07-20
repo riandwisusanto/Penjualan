@@ -55,7 +55,7 @@ class BarangController extends Controller
         $model->no_sku    = $request->no_sku;
         $model->kode_brg  = $request->kode_brg;
         $model->warna     = $request->warna;
-        $model->diskon    = $request->diskon;
+        // $model->diskon    = $request->diskon;
 
         try {
             $model->save();
@@ -111,7 +111,7 @@ class BarangController extends Controller
         $model->no_sku    = $request->no_sku;
         $model->kode_brg  = $request->kode_brg;
         $model->warna     = $request->warna;
-        $model->diskon    = $request->diskon;
+        // $model->diskon    = $request->diskon;
 
         if($request->hasFile('gambar')){
             $filenameWithExt = $request->file('gambar')->getClientOriginalName();

@@ -28,7 +28,7 @@ class CreateBarangTable extends Migration
             $table->text('keterangan')->nullable();
             $table->integer('harga_beli')->length(11);
             $table->integer('harga_jual')->length(11);
-            $table->integer('diskon')->length(11)->default(0);
+            // $table->integer('diskon')->length(11)->default(0);
         });
     }
 

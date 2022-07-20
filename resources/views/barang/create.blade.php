@@ -116,7 +116,7 @@
                                     autocomplete="off"
                                 />
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="diskon">Diskon Barang (%)</label>
                                 <input
                                     type="number"
@@ -128,7 +128,7 @@
                                     autocomplete="off"
                                     value="0"
                                 />
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="ket">Keterangan</label>
                                 <textarea

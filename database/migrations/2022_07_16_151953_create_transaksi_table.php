@@ -21,6 +21,7 @@ class CreateTransaksiTable extends Migration
             $table->date('tgl_transaksi')->nullable();
             $table->date('tgl_lunas')->nullable();
             $table->integer('status');
+            $table->integer('diskon')->length(11)->default(0);
             $table->text('keterangan')->nullable();
         });
     }
