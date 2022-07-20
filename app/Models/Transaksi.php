@@ -26,7 +26,8 @@ class Transaksi extends Model
         $data = DetailTransaksi::with('barang')->where('id_transaksi', $this->id)->get();
 
         $total = $data->reduce(function($acc, $row){
-            $sum = $row->qty * ($row->barang->harga_jual - (int)($row->barang->harga_jual * $row->barang->diskon / 100));
+            // $sum = $row->qty * ($row->barang->harga_jual - (int)($row->barang->harga_jual * $row->barang->diskon / 100));
+            $sum = $row->qty * ($row->barang->harga_jual - (int)($row->barang->harga_jual * $row->diskon / 100));
             return $acc + $sum;
         });
 

@@ -57,7 +57,6 @@
                                                         <option value="{{ $item->id }}" 
                                                             data-value="{{ $item->harga_jual }}" 
                                                             data-max="{{ $item->qty_brg }}"
-                                                            data-disc="{{ $item->diskon }}"
                                                             {{ $detail->id_barang == $item->id ? 'selected' : ''}}
                                                             >{{ $item->nama_brg }}</option>
                                                     @endforeach
@@ -91,7 +90,23 @@
                                                     step="any"
                                                     value="1"
                                                     autocomplete="off"
+                                                    value="{{ $detail->qty }}"
                                                     required
+                                                />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="diskon">Diskon %</label>
+                                                <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    id="diskon-{{ $key }}"
+                                                    name="diskon[]"
+                                                    placeholder="Diskon Barang"
+                                                    step="any"
+                                                    value="{{ $detail->diskon }}"
+                                                    autocomplete="off"
                                                 />
                                             </div>
                                         </td>
@@ -191,10 +206,11 @@
         let qty_awal = parseInt($("#id_barang-"+index+" option:selected").attr('data-max')) + parseInt($("#qty-"+index).val())
         let id_awal  = $("#id_barang-"+index).val()
 
-        let harga = $("#id_barang-"+index+" option:selected").attr('data-value') - ($("#id_barang-"+index+" option:selected").attr('data-value') * $("#id_barang-"+index+" option:selected").attr('data-disc') / 100)
+        let harga = $("#id_barang-"+index+" option:selected").attr('data-value')
         $('#harga-'+index).val(formatNumber(''+harga) + ',00')
 
-        let total = '' + (harga * $("#qty-"+index+"").val())
+        let sum   = harga * $("#qty-0").val()
+        let total = '' + (sum - (sum * $("#diskon-"+index).val() / 100))
         $('#total-'+index).val(formatNumber(total) + ',00')
 
         totalAll()
@@ -202,11 +218,13 @@
         $("#id_barang-"+index+"").on({
             change: function () {
                 $("#qty-"+index+"").val(1)
+                $("#diskon-"+index+"").val(0)
 
-                let harga = $("#id_barang-"+index+" option:selected").attr('data-value') - ($("#id_barang-"+index+" option:selected").attr('data-value') * $("#id_barang-"+index+" option:selected").attr('data-disc') / 100)
+                let harga = $("#id_barang-"+index+" option:selected").attr('data-value')
                 $('#harga-'+index).val(formatNumber(''+harga) + ',00')
 
-                let total = '' + (harga * $("#qty-"+index+"").val())
+                let sum   = harga * $("#qty-"+index).val()
+                let total = '' + (sum - (sum * $("#diskon-"+index).val() / 100))
                 $('#total-'+index).val(formatNumber(total) + ',00')
 
                 totalAll()
@@ -220,7 +238,18 @@
                     max = qty_awal
                 if($(this).val() > max)
                     $(this).val(max)
-                let total = '' + (($("#id_barang-"+index+" option:selected").attr('data-value') - ($("#id_barang-"+index+" option:selected").attr('data-value') * $("#id_barang-"+index+" option:selected").attr('data-disc') / 100)) * $("#qty-"+index+"").val())
+                let sum   = $("#id_barang-"+index+" option:selected").attr('data-value') * $(this).val()
+                let total = '' + (sum - (sum * $("#diskon-"+index).val() / 100))
+                $('#total-'+index).val(formatNumber(total) + ',00')
+
+                totalAll()
+            }
+        })
+
+        $("#diskon-"+index).on({
+            change: function () {
+                let sum   = $("#id_barang-"+index+" option:selected").attr('data-value') * $("#qty-"+index).val()
+                let total = '' + (sum - (sum * $(this).val() / 100))
                 $('#total-'+index).val(formatNumber(total) + ',00')
 
                 totalAll()
@@ -235,12 +264,13 @@
     function totalAll(){
         let qty_all      = $("input[name='qty[]']").map(function(){return $(this).val();}).get();
         let harga_barang = $("select[name='id_barang[]'] option:selected").map(function(){return $(this).attr('data-value');}).get();
-        let diskon_barang= $("select[name='id_barang[]'] option:selected").map(function(){return $(this).attr('data-disc');}).get();
+        let diskon_barang= $("input[name='diskon[]']").map(function(){return $(this).val();}).get();
         
         var total_all  = 0
         var is = 0
         qty_all.forEach(row => {
-            total_all += row * (harga_barang[is] - (harga_barang[is] * diskon_barang[is] / 100))
+            let harga = row * harga_barang[is]
+            total_all += harga - (diskon_barang[is] * harga / 100)
             is++
         })
         $('#total_all').val(formatNumber(""+total_all) + ',00')
@@ -297,6 +327,21 @@
                     </td>
                     <td>
                         <div class="form-group">
+                            <label for="diskon">Diskon %</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="diskon-${i}"
+                                name="diskon[]"
+                                placeholder="Diskon Barang"
+                                step="any"
+                                value="0"
+                                autocomplete="off"
+                            />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
                             <label for="total">Total</label>
                             <input
                                 type="text"
@@ -321,7 +366,8 @@
             let harga = $("#id_barang-"+i+" option:selected").attr('data-value')
             $('#harga-'+i).val(formatNumber(harga) + ',00')
 
-            let total_i = '' + ($("#id_barang-"+i+" option:selected").attr('data-value') * $("#qty-"+i+"").val())
+            let sum     = $("#id_barang-"+i+" option:selected").attr('data-value') * $("#qty-"+i+"").val()
+            let total_i = '' + (sum - (sum * $("#diskon-"+i).val() / 100))
             $('#total-'+i).val(formatNumber(total_i) + ',00')
 
             totalAll()
@@ -329,11 +375,13 @@
             $("#id_barang-"+i+"").on({
                 change: function () {
                     $("#qty"+i+"").val(1)
+                    $("#diskon"+i+"").val(0)
 
-                    let harga = $("#id_barang-"+i+" option:selected").attr('data-value') - ($("#id_barang-"+i+" option:selected").attr('data-value') * $("#id_barang-"+i+" option:selected").attr('data-disc') / 100)
+                    let harga = $("#id_barang-"+i+" option:selected").attr('data-value')
                     $("#harga-"+i+"").val(formatNumber(''+harga) + ',00')
 
-                    let total = '' + (harga * $("#qty-"+i+"").val())
+                    let sum   = harga * $("#qty-"+i).val()
+                    let total = '' + (sum - (sum * $("#diskon-"+i).val() / 100))
                     $('#total-'+i).val(formatNumber(total) + ',00')
 
                     totalAll()
@@ -345,7 +393,19 @@
                     let max = parseInt($("#id_barang-"+i+" option:selected").attr('data-max'))
                     if($(this).val() > max)
                         $(this).val(max)
-                    let total = '' + (($("#id_barang-"+i+" option:selected").attr('data-value') - ($("#id_barang-"+i+" option:selected").attr('data-value') * $("#id_barang-"+i+" option:selected").attr('data-disc') / 100)) * $("#qty-"+i+"").val())
+                    
+                    let sum   = $("#id_barang-"+i+" option:selected").attr('data-value') * $(this).val()
+                    let total = '' + (sum - (sum * $("#diskon-"+i).val() / 100))
+                    $('#total-'+i).val(formatNumber(total) + ',00')
+
+                    totalAll()
+                }
+            })
+
+            $("#diskon-"+i).on({
+                change: function () {
+                    let sum   = $("#id_barang-"+i+" option:selected").attr('data-value') * $("#qty-"+i).val()
+                    let total = '' + (sum - (sum * $(this).val() / 100))
                     $('#total-'+i).val(formatNumber(total) + ',00')
 
                     totalAll()

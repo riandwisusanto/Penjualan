@@ -55,6 +55,7 @@ class TransaksiController extends Controller
                 $model_det->id_transaksi    = $id;       
                 $model_det->id_barang       = $request->id_barang[$i];
                 $model_det->qty       = $request->qty[$i];
+                $model_det->diskon        = $request->diskon[$i];
 
                 $model_det->save();
 
@@ -114,6 +115,7 @@ class TransaksiController extends Controller
                 $model_det->id_transaksi    = $id;       
                 $model_det->id_barang       = $request->id_barang[$i];
                 $model_det->qty       = $request->qty[$i];
+                $model_det->diskon    = $request->diskon[$i];
 
                 $model_det->save();
 
