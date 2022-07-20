@@ -45,8 +45,8 @@
                         <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->barang->harga_beli)) }},00</td>
                         <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->barang->harga_jual)) }},00</td>
                         <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->barang->harga_jual - $item->barang->harga_beli)) }},00</td>
-                        <td>{{ $item->barang->diskon }}%</td>
-                        <td class="text-right">Rp. {{ str_replace(',', '.', number_format((($item->barang->harga_jual - $item->barang->harga_beli) - (($item->barang->harga_jual - $item->barang->harga_beli) * $item->barang->diskon / 100)) * $item->qty)) }},00</td>
+                        <td>{{ $item->diskon }}%</td>
+                        <td class="text-right">Rp. {{ str_replace(',', '.', number_format((($item->barang->harga_jual - $item->barang->harga_beli) - (($item->barang->harga_jual - $item->barang->harga_beli) * $item->diskon / 100)) * $item->qty)) }},00</td>
                       </tr>
                       @endforeach
                     </tfoot>
