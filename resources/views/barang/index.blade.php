@@ -31,12 +31,12 @@
                     <thead>
                     <tr>
                       <!-- <th>ID.</th> -->
-                      <th>Kode Barang</th>
+                      <!-- <th>Kode Barang</th> -->
                       <th>Gambar</th>
                       <th>Tanggal</th>
-                      <th>Nomor SKU</th>
+                      <!-- <th>Nomor SKU</th> -->
                       <th>Nama Barang</th>
-                      <!-- <th>Merk</th> -->
+                      <th>Merk</th>
                       <!-- <th>Warna</th> -->
                       <th>Stok</th>
                       <th>Harga Beli</th>
@@ -51,12 +51,12 @@
                     @foreach ($data as $item)
                         <tr class="text-center">
                           <!-- <td>{{ $item->id }}</td> -->
-                          <td>{{ $item->kode_brg }}</td>
+                          <!-- <td>{{ $item->kode_brg }}</td> -->
                           <td><img src="{{ url('storage/image/'.$item->gambar) }}" class="img-fluid" width="70px" height="70px"></td>
                           <td>{{ $item->tanggal }}</td>
-                          <td>{{ $item->no_sku }}</td>
+                          <!-- <td>{{ $item->no_sku }}</td> -->
                           <td>{{ $item->nama_brg }}</td>
-                          <!-- <td>{{ $item->merk }}</td> -->
+                          <td>{{ $item->merk }}</td>
                           <!-- <td>{{ $item->warna }}</td> -->
                           <td>{{ $item->qty_brg }}</td>
                           <td class="text-right">Rp. {{ str_replace(',', '.', number_format($item->harga_beli)) }},00</td>

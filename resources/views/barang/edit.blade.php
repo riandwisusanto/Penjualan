@@ -22,7 +22,7 @@
                     @csrf
                     {{ method_field('PUT') }}
                         <div class="card-body">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="no_sku">Nomor SKU <span class="text-danger">*</span></label>
                                 <input
                                     type="text"
@@ -34,7 +34,7 @@
                                     required
                                     value="{{ $data->no_sku }}"
                                 />
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="nama_brg">Nama Barang <span class="text-danger">*</span></label>
                                 <input
@@ -60,7 +60,7 @@
                                     name="merk"
                                 />
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="kode_brg">Kode Barang <span class="text-danger">*</span></label>
                                 <input
                                     type="text"
@@ -84,7 +84,7 @@
                                     name="warna"
                                     value="{{ $data->warna }}"
                                 />
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="qty">Jumlah Barang <span class="text-danger">*</span></label>
                                 <input

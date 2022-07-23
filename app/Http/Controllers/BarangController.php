@@ -52,9 +52,9 @@ class BarangController extends Controller
         $model->keterangan= $request->ket;
         $model->gambar    = $filenameSimpan;        
         $model->tanggal   = date('Y-m-d');
-        $model->no_sku    = $request->no_sku;
-        $model->kode_brg  = $request->kode_brg;
-        $model->warna     = $request->warna;
+        // $model->no_sku    = $request->no_sku;
+        // $model->kode_brg  = $request->kode_brg;
+        // $model->warna     = $request->warna;
         // $model->diskon    = $request->diskon;
 
         try {
@@ -108,9 +108,9 @@ class BarangController extends Controller
         $model->harga_jual= (int)$harga_jual;
         $model->keterangan= $request->ket;       
         $model->tanggal   = date('Y-m-d');
-        $model->no_sku    = $request->no_sku;
-        $model->kode_brg  = $request->kode_brg;
-        $model->warna     = $request->warna;
+        // $model->no_sku    = $request->no_sku;
+        // $model->kode_brg  = $request->kode_brg;
+        // $model->warna     = $request->warna;
         // $model->diskon    = $request->diskon;
 
         if($request->hasFile('gambar')){
