@@ -37,4 +37,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/labarugi', [LabarugiController::class, 'index']);
     Route::resource('/pengaturan', ConfigController::class);
     Route::resource('/pembeli', PembeliController::class);
+
+    Route::get('/transaksi/print/{id}', [TransaksiController::class, 'print']);
 });

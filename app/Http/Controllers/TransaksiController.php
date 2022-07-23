@@ -8,6 +8,7 @@ use App\Models\Pembeli;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Exception;
+use PDF;
 
 class TransaksiController extends Controller
 {
@@ -155,5 +156,18 @@ class TransaksiController extends Controller
 
         session()->flash('success', 'Berhasil menghapus transaksi');
         return redirect("transaksi");
+    }
+
+    public function print($id)
+    {
+        $relations = [
+            'detail.barang',
+            'pembeli'
+        ];
+        $data    = Transaksi::with($relations)->where('id', $id)->first();
+
+        $pdf = PDF::loadView('transaksi.pdf', ['data' => $data]);
+        $filename = 'Struk Transaksi #'. $data->id;
+        return $pdf->download($filename.'.pdf');
     }
 }

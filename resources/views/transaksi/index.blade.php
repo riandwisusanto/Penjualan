@@ -62,6 +62,7 @@
                         <td>{{ $item->keterangan }}</td>
                         <td>
                           <div class="btn-group">
+                            <a href="{{ url('/transaksi/print/'.$item->id) }}" class="btn btn-sm btn-warning">Print</a>
                             <a href="{{ url('/transaksi/'.$item->id) }}" class="btn btn-sm btn-success">Edit</a>
                             <form method="POST" action="{{ url('/transaksi/'.$item->id) }}">
                               {{ csrf_field() }}
